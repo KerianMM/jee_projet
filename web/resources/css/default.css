@@ -1,0 +1,21 @@
+body {
+    font-size : small;
+    padding: 0;
+    margin: 0;
+}
+
+.ui-widget {
+    font-size: small !important;
+}
+
+.ui-panel-titlebar {
+    text-align: center;
+}
+
+.table-no-header thead {
+    display: none;
+}
+
+.table-center td {
+    text-align: center;
+}

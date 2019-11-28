@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="/css/default.css"/>
+        <title>#{title}</title>
+    </h:head>
+    <h:body>
+        <p:confirmDialog global="true">
+            <p:commandButton value="#{msg['app.yes']}"
+                             type="button"
+                             styleClass="ui-confirmdialog-yes"
+                             icon="fa fa-check"/>
+        </p:confirmDialog>
+
+        <header>
+            <h:form>
+                <p:menubar rendered="#{request.userPrincipal != null}">
+                    <p:menuitem>
+                            <p:commandButton value="#{msg['app.disconnect']}"
+                                             icon="fa fa-sign-out"
+                                             action="#{controller.security.logout()}"/>
+                    </p:menuitem>
+                </p:menubar>
+            </h:form>
+        </header>
+
+        <main>
+            <section>
+                <h1>#{title}</h1>
+            </section>
+            <ui:insert name="content"></ui:insert>
+        </main>
+    </h:body>
+</html>
