@@ -19,7 +19,7 @@ public class UserEntity extends GenericEntity {
     @Column(nullable = false)
     protected Boolean active = true;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     protected PersonEntity person;
 
     @ManyToMany
