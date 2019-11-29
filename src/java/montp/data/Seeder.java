@@ -13,6 +13,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Singleton
@@ -30,19 +32,12 @@ public class Seeder {
             userService.isEmpty()
         ) {
             //region PERSON
-            PersonEntity kerian = new PersonEntity("Kérian", "MONTES-MORIN", "kerianmontes@test.com");
-            PersonEntity ben    = new PersonEntity("Ben", "Clément", "ben@test.com");
-            PersonEntity loic   = new PersonEntity("Loic", "Wernert", "lw@test.com");
+            PersonEntity kerian = new PersonEntity(false, "Kérian", "MONTES-MORIN", "kerianmontes@test.com", "0642624880", new Date(1997, Calendar.JULY, 3), "4 chemin des jardins neufs, Avignon", "84000", new Float("20000"), new Float("12.5"));
+            PersonEntity ben    = new PersonEntity(false, "Ben", "CLEMENT", "ben.clement@test.com", new Date(1996, Calendar.DECEMBER, 14), new Float("18000"), new Float("10.5"));
+            PersonEntity loic   = new PersonEntity(false, "Loic", "Wernert", "lw@test.com", new Date(1998, Calendar.NOVEMBER, 14), new Float("2000"), new Float("15"));
 
-            PersonEntity esimed     = new PersonEntity("Esi", "med", "esimed@test.com");
-            PersonEntity aubanel    = new PersonEntity("Théodore", "Aubanel", "aubanel@test.com");
-
-            personService.insert(kerian);
-            personService.insert(ben);
-            personService.insert(loic);
-
-            personService.insert(esimed);
-            personService.insert(aubanel);
+            PersonEntity esimed     = new PersonEntity(true, "", "Esimed", "esimed@test.com", new Date(1990, Calendar.JANUARY, 1), new Float("30000"), new Float("14.50"));
+            PersonEntity aubanel    = new PersonEntity(true, "", "Théodore Aubanel", "aubanel@test.com", new Date(1990, Calendar.JANUARY, 1), new Float("30000"), new Float("14.50"));
             //endregion
 
             if (userService.getGroup("USER") == null) {
@@ -51,21 +46,37 @@ public class Seeder {
                 em.persist(groupUser);
                 em.persist(groupAdmin);
 
-                UserEntity userAdmin = new UserEntity("kerian", "kerian", kerian);
-                UserEntity userUser = new UserEntity("ben", "ben", ben);
+                UserEntity userKerian = new UserEntity("kerian", "kerian", kerian);
+                List<GroupEntity> groupesKerian = new ArrayList<>();
+                groupesKerian.add(groupUser);
+                groupesKerian.add(groupAdmin);
+                userKerian.setGroups(groupesKerian);
 
-                List<GroupEntity> groupesAdmin  = new ArrayList<>();
-                List<GroupEntity> groupesUser   = new ArrayList<>();
+                UserEntity userBen = new UserEntity("ben", "ben", ben);
+                List<GroupEntity> groupesBen = new ArrayList<>();
+                groupesBen.add(groupUser);
+                userBen.setGroups(groupesBen);
 
-                groupesUser.add(groupUser);
-                userUser.setGroups(groupesUser);
+                UserEntity userLoic = new UserEntity("loic", "loic", loic);
+                List<GroupEntity> groupesLoic = new ArrayList<>();
+                groupesLoic.add(groupUser);
+                userLoic.setGroups(groupesLoic);
 
-                groupesAdmin.add(groupUser);
-                groupesAdmin.add(groupAdmin);
-                userAdmin.setGroups(groupesAdmin);
+                UserEntity userEsimed = new UserEntity("esimed", "esimed", esimed);
+                List<GroupEntity> groupesEsimed = new ArrayList<>();
+                groupesEsimed.add(groupUser);
+                userEsimed.setGroups(groupesEsimed);
 
-                userService.insert(userAdmin);
-                userService.insert(userUser);
+                UserEntity userAubanel = new UserEntity("aubanel", "aubanel", aubanel);
+                List<GroupEntity> groupesAubanel = new ArrayList<>();
+                groupesAubanel.add(groupUser);
+                userAubanel.setGroups(groupesAubanel);
+
+                userService.insert(userKerian);
+                userService.insert(userBen);
+                userService.insert(userLoic);
+                userService.insert(userEsimed);
+                userService.insert(userAubanel);
             }
         }
     }
