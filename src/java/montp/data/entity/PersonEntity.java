@@ -8,16 +8,16 @@ import java.util.Date;
 public class PersonEntity extends GenericEntity {
 
     //region MEMBERS
-    @Column(nullable = false) protected Boolean isCompany = false;
-    @Column(nullable = false) protected String firstName;
-    @Column(nullable = false) protected String lastName;
-    @Column(nullable = false) protected String email;
-    @Column protected String telephone;
-    @Column protected String addresse;
-    @Column protected String zip;
-    @Column(nullable = false) protected Date birthDate;
-    @Column(nullable = false) protected Float turnover;
-    @Column(nullable = false) protected Float taxes;
+    @Column(nullable = false) private Boolean isCompany = false;
+    @Column(nullable = false) private String firstName;
+    @Column(nullable = false) private String lastName;
+    @Column(nullable = false) private String email;
+    @Column private String telephone;
+    @Column private String addresse;
+    @Column private String zip;
+    @Column(nullable = false) private Date birthDate;
+    @Column(nullable = false) private Float turnover;
+    @Column(nullable = false) private Float taxes;
     //endregion
 
     public PersonEntity() {}

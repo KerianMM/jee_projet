@@ -11,16 +11,16 @@ import java.util.List;
 public class UserEntity extends GenericEntity {
 
     @Column(nullable = false, unique = true, length = 50)
-    protected String userName;
+    private String userName;
     @Column(columnDefinition = "TEXT")
-    protected String password;
+    private String password;
     @Column(columnDefinition = "TEXT")
-    protected String oldPassword;
+    private String oldPassword;
     @Column(nullable = false)
-    protected Boolean active = true;
+    private Boolean active = true;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    protected PersonEntity person;
+    private PersonEntity person;
 
     @ManyToMany
     @JoinTable(name = "SECURITY_USER_GROUP",
@@ -28,14 +28,18 @@ public class UserEntity extends GenericEntity {
                     referencedColumnName = "username"),
             inverseJoinColumns = @JoinColumn(name = "groupname",
                     referencedColumnName = "groupname"))
-    protected List<GroupEntity> groups;
+    private List<GroupEntity> groups;
 
     public UserEntity() {}
+    public UserEntity(PersonEntity person) {
+        this.person = person;
+    }
     public UserEntity(String userName, String password, PersonEntity person) {
         this.userName = userName;
         this.password = password;
         this.person = person;
     }
+
     public UserEntity(String userName, String password, PersonEntity person, Boolean active) {
         this.userName = userName;
         this.password = password;
