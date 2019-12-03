@@ -2,45 +2,45 @@ package montp.data.entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "person")
-public class PersonEntity extends GenericEntity {
+@Table(name = "client")
+public class ClientEntity extends GenericEntity {
 
     //region MEMBERS
     @Column(nullable = false) private Boolean isCompany = false;
-    @Column(nullable = false) private String firstName;
-    @Column(nullable = false) private String lastName;
+    @Column(nullable = false) private String firstname;
+    @Column(nullable = false) private String lastname;
     @Column(nullable = false) private String email;
     @Column private String telephone;
-    @Column private String addresse;
+    @Column private String address;
+    @Column private String city;
     @Column private String zip;
     @Column(nullable = false) private Date birthDate;
     @Column(nullable = false) private Float turnover;
     @Column(nullable = false) private Float taxes;
-
-    @OneToMany(mappedBy = "person") private List<ClientEntity> clients;
+    @ManyToOne private PersonEntity person;
     //endregion
 
-    public PersonEntity() {}
-    public PersonEntity(Boolean isCompany, String firstName, String lastName, String email, Date birthDate, Float turnover, Float taxes) {
+    public ClientEntity() {}
+    public ClientEntity(Boolean isCompany, String firstName, String lastName, String email, Date birthDate, Float turnover, Float taxes) {
         this.isCompany  = isCompany;
-        this.firstName  = firstName;
-        this.lastName   = lastName;
+        this.firstname = firstName;
+        this.lastname = lastName;
         this.email      = email;
         this.birthDate  = birthDate;
         this.turnover   = turnover;
         this.taxes      = taxes;
     }
-    public PersonEntity(Boolean isCompany, String firstName, String lastName, String email, String telephone, Date birthDate, String addresse, String zip, Float turnover, Float taxes) {
+    public ClientEntity(Boolean isCompany, String firstName, String lastName, String email, String telephone, Date birthDate, String addresse, String city, String zip, Float turnover, Float taxes) {
         this.isCompany  = isCompany;
-        this.firstName  = firstName;
-        this.lastName   = lastName;
+        this.firstname = firstName;
+        this.lastname = lastName;
         this.email      = email;
         this.telephone  = telephone;
         this.birthDate  = birthDate;
-        this.addresse   = addresse;
+        this.address    = addresse;
+        this.city       = city;
         this.zip        = zip;
         this.turnover   = turnover;
         this.taxes      = taxes;
@@ -55,20 +55,20 @@ public class PersonEntity extends GenericEntity {
         isCompany = company;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -95,12 +95,20 @@ public class PersonEntity extends GenericEntity {
         this.birthDate = birthDate;
     }
 
-    public String getAddresse() {
-        return addresse;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddresse(String addresse) {
-        this.addresse = addresse;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getZip() {
@@ -130,6 +138,6 @@ public class PersonEntity extends GenericEntity {
 
     @Override
     public String toString() {
-        return String.format("%s %s", firstName, lastName.toUpperCase());
+        return String.format("%s %s", firstname, lastname.toUpperCase());
     }
 }
