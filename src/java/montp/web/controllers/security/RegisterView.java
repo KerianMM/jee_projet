@@ -23,6 +23,15 @@ public class RegisterView extends CUDController<UserEntity, UserService> {
 
     @Override
     public void save() {
+        if (service.checkIfExists(entity.getPerson().getEmail())) {
+            FacesTools.addMessage(
+                    FacesMessage.SEVERITY_WARN,
+                    messages.get("app.register.error.exist")
+            );
+
+            return;
+        }
+
         entity.setUserName(entity.getPerson().getEmail());
 
         boolean created = service.save(entity);
