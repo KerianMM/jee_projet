@@ -63,7 +63,7 @@
             <url-pattern>/app/login.xhtml</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>login</web-resource-name>
+            <web-resource-name>login_error</web-resource-name>
             <description/>
             <url-pattern>/app/login_error.xhtml</url-pattern>
         </web-resource-collection>
