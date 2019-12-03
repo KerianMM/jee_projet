@@ -20,6 +20,7 @@
         <header>
             <h:form>
                 <p:menubar rendered="#{request.userPrincipal != null}">
+                    <p:menuitem value="#{msg['app.entity.client.owner.title']}" outcome="/clients/list"/>
                     <p:menuitem>
                             <p:commandButton value="#{msg['app.disconnect']}"
                                              icon="fa fa-sign-out"
