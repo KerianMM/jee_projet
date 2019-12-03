@@ -3,8 +3,10 @@ package montp.web.controllers.security;
 import montp.data.entity.PersonEntity;
 import montp.data.entity.security.UserEntity;
 import montp.services.UserService;
+import montp.web.FacesTools;
 import montp.web.controllers.base.CUDController;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.util.Calendar;
@@ -22,6 +24,17 @@ public class RegisterView extends CUDController<UserEntity, UserService> {
     @Override
     public void save() {
         entity.setUserName(entity.getPerson().getEmail());
-        super.save();
+
+        boolean created = service.save(entity);
+
+        if (created) {
+
+            FacesTools.addFlashMessage(
+                    FacesMessage.SEVERITY_INFO,
+                    messages.get("app.register.success")
+            );
+
+            FacesTools.redirect("app/login.xhtml");
+        }
     }
 }
