@@ -107,7 +107,7 @@
                 <p:commandButton
                         value="#{msg['app.add.action']}"
                         action="#{userClientsCRUDView.save()}"
-                        update="@form,clients_list_form:messages"
+                        update="@form,clients_list_form:messages,clients_list_form:clientDataTable"
                         oncomplete="if (!args.validationFailed) PF('client_add_dialog').hide()"/>
             </h:form>
         </p:dialog>
