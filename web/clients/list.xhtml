@@ -15,6 +15,32 @@
                              process="@this"
                              oncomplete="PF('client_add_dialog').show()"
                              update="client_add_dialog"/>
+
+            <p:dataTable var="client"
+                         value="#{userClientsCRUDView.entities}"
+                         id="clientDataTable">
+
+                <p:column headerText="#{msg['app.entity.client.field.firstname']}" sortBy="#{client.firstname}" filterBy="#{client.firstname}">
+                    <h:outputText value="#{client.firstname}" />
+                </p:column>
+
+                <p:column headerText="#{msg['app.entity.client.field.lastname']}" sortBy="#{client.lastname}" filterBy="#{client.lastname}">
+                    <h:outputText value="#{client.lastname}" />
+                </p:column>
+                
+                <p:column headerText="#{msg['app.entity.client.field.email']}" sortBy="#{client.email}" filterBy="#{client.email}">
+                    <h:outputText value="#{client.email}" />
+                </p:column>
+                
+                <p:column headerText="#{msg['app.entity.client.field.telephone']}" sortBy="#{client.telephone}" filterBy="#{client.telephone}">
+                    <h:outputText value="#{client.telephone}" />
+                </p:column>
+
+                <p:column headerText="#{msg['app.entity.client.field.city']}" sortBy="#{client.city}" filterBy="#{client.city}">
+                    <h:outputText value="#{client.city}" />
+                </p:column>
+
+            </p:dataTable>
         </h:form>
 
         <p:dialog header="#{msg['app.add.action']}"

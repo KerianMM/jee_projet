@@ -16,6 +16,11 @@ public class UserClientsCRUDView extends CRUDController<ClientEntity, ClientServ
     @Inject private UserEntity user;
 
     @Override
+    public void init() {
+        entities = service.getByCurrentUser(user);
+    }
+
+    @Override
     public void create() {
         entity = new ClientEntity(user.getPerson());
     }
