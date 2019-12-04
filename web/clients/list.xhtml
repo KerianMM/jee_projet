@@ -13,8 +13,8 @@
                              value="#{msg['app.add.action']}"
                              actionListener="#{userClientsCRUDView.create()}"
                              process="@this"
-                             oncomplete="PF('client_add_dialog').show()"
-                             update="client_add_dialog"/>
+                             oncomplete="PF('client_dialog').show()"
+                             update="client_dialog"/>
 
             <p:dataTable var="client"
                          value="#{userClientsCRUDView.entities}"
@@ -41,6 +41,11 @@
                 </p:column>
 
                 <p:column headerText="#{msg['app.datatable.column.options']}" style="width:120px;text-align:center">
+                    <p:commandButton icon="fa fa-edit"
+                                     title="#{msg['app.update.action']}"
+                                     actionListener="#{userClientsCRUDView.setEntity(client)}"
+                                     update="client_dialog"
+                                     oncomplete="PF('client_dialog').show()"/>
                     <p:commandButton icon="fa fa-trash"
                                      title="#{msg['app.delete.action']}"
                                      rendered="#{userClientsCRUDView.canDelete(client)}"
@@ -56,12 +61,12 @@
         </h:form>
 
         <p:dialog header="#{msg['app.add.action']}"
-                  widgetVar="client_add_dialog"
+                  widgetVar="client_dialog"
                   minHeight="40"
                   modal="true"
                   closeOnEscape="true"
-                  id="client_add_dialog">
-            <h:form id="client_add_form">
+                  id="client_dialog">
+            <h:form id="client_form">
                 <p:fieldset legend="Informations"
                             style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
@@ -104,11 +109,10 @@
 
                 <p:separator/>
                 <h:outputText value="#{msg['app.requiredfields']}"/>
-                <p:commandButton
-                        value="#{msg['app.add.action']}"
-                        action="#{userClientsCRUDView.save()}"
-                        update="@form,clients_list_form:messages,clients_list_form:clientDataTable"
-                        oncomplete="if (!args.validationFailed) PF('client_add_dialog').hide()"/>
+                <p:commandButton value="#{msg[(userClientsCRUDView.entity.id == null) ?'app.add.action' :'app.update.action']}"
+                                 action="#{userClientsCRUDView.save()}"
+                                 update="@form,clients_list_form:messages,clients_list_form:clientDataTable"
+                                 oncomplete="if (!args.validationFailed) PF('client_dialog').hide()"/>
             </h:form>
         </p:dialog>
 
