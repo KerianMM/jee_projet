@@ -1,9 +1,79 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
                 template="../layout.xhtml">
-    <ui:param name="title" value="#{msg['app.entity.client.owner.title']}" />
+    <ui:param name="title" value="#{msg['app.entity.client.owner.title']}"/>
     <ui:define name="content">
-        <h2>#{msg['app.entity.client.owner.title']}</h2>
+
+        <h:form id="clients_list_form">
+            <p:growl id="messages" autoUpdate="true"/>
+            <p:commandButton icon="fa fa-plus"
+                             value="#{msg['app.add.action']}"
+                             actionListener="#{userClientsCRUDView.create()}"
+                             process="@this"
+                             oncomplete="PF('client_add_dialog').show()"
+                             update="client_add_dialog"/>
+        </h:form>
+
+        <p:dialog header="#{msg['app.add.action']}"
+                  widgetVar="client_add_dialog"
+                  minHeight="40"
+                  modal="true"
+                  closeOnEscape="true"
+                  id="client_add_dialog">
+            <h:form id="client_add_form">
+                <p:fieldset legend="Informations"
+                            style="margin-bottom:20px">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="#{msg['app.entity.client.field.isEntreprise']} :"/>
+                        <p:toggleSwitch value="#{userClientsCRUDView.entity.isCompany}"/>
+
+                        <p:outputLabel for="firstname" value="#{msg['app.entity.client.field.firstname']} :"/>
+                        <p:inputText id="firstname" value="#{userClientsCRUDView.entity.firstname}"
+                                     required="true"/>
+
+                        <p:outputLabel for="lastname" value="#{msg['app.entity.client.field.lastname']} :"/>
+                        <p:inputText id="lastname" value="#{userClientsCRUDView.entity.lastname}" required="true"/>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset style="margin-bottom:20px" legend="Contact">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel for="email" value="#{msg['app.entity.client.field.email']} :"/>
+                        <p:inputText id="email" value="#{userClientsCRUDView.entity.email}" required="true">
+                            <f:validator validatorId="emailValidator"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="telephone" value="#{msg['app.entity.client.field.telephone']} :"/>
+                        <p:inputText id="telephone" value="#{userClientsCRUDView.entity.telephone}"/>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:fieldset style="margin-bottom:20px" legend="Localisation">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel for="addresse" value="#{msg['app.entity.client.field.address']} :"/>
+                        <p:inputText id="addresse" value="#{userClientsCRUDView.entity.address}"/>
+
+                        <p:outputLabel for="city" value="#{msg['app.entity.client.field.city']} :"/>
+                        <p:inputText id="city" value="#{userClientsCRUDView.entity.city}"/>
+
+                        <p:outputLabel for="zip" value="#{msg['app.entity.client.field.zip']} :"/>
+                        <p:inputText id="zip" value="#{userClientsCRUDView.entity.zip}"/>
+                    </h:panelGrid>
+                </p:fieldset>
+
+                <p:separator/>
+                <h:outputText value="#{msg['app.requiredfields']}"/>
+                <p:commandButton
+                        value="#{msg['app.add.action']}"
+                        action="#{userClientsCRUDView.save()}"
+                        update="@form,clients_list_form:messages"
+                        oncomplete="if (!args.validationFailed) PF('client_add_dialog').hide()"/>
+            </h:form>
+        </p:dialog>
+
     </ui:define>
 </ui:composition>
 

@@ -1,7 +1,9 @@
 package montp.data.entity;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "client")
@@ -9,49 +11,43 @@ public class ClientEntity extends GenericEntity {
 
     //region MEMBERS
     @Column(nullable = false) private Boolean isCompany = false;
-    @Column(nullable = false) private String firstname;
-    @Column(nullable = false) private String lastname;
+    @Column private String firstname;
+    @Column private String lastname;
     @Column(nullable = false) private String email;
     @Column private String telephone;
     @Column private String address;
     @Column private String city;
     @Column private String zip;
-    @Column(nullable = false) private Date birthDate;
-    @Column(nullable = false) private Float turnover;
-    @Column(nullable = false) private Float taxes;
     @ManyToOne private PersonEntity person;
     //endregion
 
     public ClientEntity() {}
-    public ClientEntity(Boolean isCompany, String firstName, String lastName, String email, Date birthDate, Float turnover, Float taxes) {
+    public ClientEntity(PersonEntity person) {
+        this.person = person;
+    }
+    public ClientEntity(Boolean isCompany, String firstName, String lastName, String email) {
         this.isCompany  = isCompany;
         this.firstname = firstName;
         this.lastname = lastName;
         this.email      = email;
-        this.birthDate  = birthDate;
-        this.turnover   = turnover;
-        this.taxes      = taxes;
     }
-    public ClientEntity(Boolean isCompany, String firstName, String lastName, String email, String telephone, Date birthDate, String addresse, String city, String zip, Float turnover, Float taxes) {
+    public ClientEntity(Boolean isCompany, String firstName, String lastName, String email, String telephone, String addresse, String city, String zip) {
         this.isCompany  = isCompany;
         this.firstname = firstName;
         this.lastname = lastName;
         this.email      = email;
         this.telephone  = telephone;
-        this.birthDate  = birthDate;
         this.address    = addresse;
         this.city       = city;
         this.zip        = zip;
-        this.turnover   = turnover;
-        this.taxes      = taxes;
     }
 
     //region GETTERS / SETTERS
-    public Boolean getCompany() {
+    public Boolean getIsCompany() {
         return isCompany;
     }
 
-    public void setCompany(Boolean company) {
+    public void setIsCompany(Boolean company) {
         isCompany = company;
     }
 
@@ -87,14 +83,6 @@ public class ClientEntity extends GenericEntity {
         this.telephone = telephone;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -119,21 +107,14 @@ public class ClientEntity extends GenericEntity {
         this.zip = zip;
     }
 
-    public Float getTurnover() {
-        return turnover;
+    public PersonEntity getPerson() {
+        return person;
     }
 
-    public void setTurnover(Float turnover) {
-        this.turnover = turnover;
+    public void setPerson(PersonEntity person) {
+        this.person = person;
     }
 
-    public Float getTaxes() {
-        return taxes;
-    }
-
-    public void setTaxes(Float taxes) {
-        this.taxes = taxes;
-    }
     //endregion
 
     @Override
