@@ -5,4 +5,8 @@ import montp.data.entity.ProjectEntity;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ProjectDAO extends GenericDAO<ProjectEntity> {}
+public class ProjectDAO extends GenericDAO<ProjectEntity> {
+    public ProjectDAO() {
+        super(ProjectEntity.class);
+    }
+}
