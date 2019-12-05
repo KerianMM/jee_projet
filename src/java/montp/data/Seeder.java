@@ -1,9 +1,11 @@
 package montp.data;
 
 import montp.data.entity.PersonEntity;
+import montp.data.entity.ProjectStatusEntity;
 import montp.data.entity.security.GroupEntity;
 import montp.data.entity.security.UserEntity;
 import montp.services.PersonService;
+import montp.services.ProjectStatusService;
 import montp.services.UserService;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +25,7 @@ public class Seeder {
     
     @Inject private UserService userService;
     @Inject private PersonService personService;
+    @Inject private ProjectStatusService projectStatusService;
 
     @PersistenceContext private EntityManager em;
     
@@ -78,6 +81,15 @@ public class Seeder {
                 userService.insert(userEsimed);
                 userService.insert(userAubanel);
             }
+        }
+
+        if (projectStatusService.isEmpty()) {
+            projectStatusService.insert(new ProjectStatusEntity("prospect", 1));
+            projectStatusService.insert(new ProjectStatusEntity("devis envoyé", 2));
+            projectStatusService.insert(new ProjectStatusEntity("devis accepté", 3));
+            projectStatusService.insert(new ProjectStatusEntity("démarré", 4));
+            projectStatusService.insert(new ProjectStatusEntity("terminé", 5));
+            projectStatusService.insert(new ProjectStatusEntity("annulé", 6));
         }
     }
 }
