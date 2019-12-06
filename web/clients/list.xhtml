@@ -56,6 +56,10 @@
                                    message="#{msg['app.delete.action']} #{client} ?"
                                    icon="fa fa-question-circle"/>
                     </p:commandButton>
+                    <br/>
+                    <p:link outcome="/projects/list.xhtml" value="#{msg['app.entity.client.field.projects']}">
+                        <f:param name="client" value="#{client.id}" />
+                    </p:link>
                 </p:column>
             </p:dataTable>
         </h:form>
