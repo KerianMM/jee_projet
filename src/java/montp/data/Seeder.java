@@ -1,12 +1,12 @@
 package montp.data;
 
+import montp.data.entity.FacturationStatusEntity;
+import montp.data.entity.PayementModeEntity;
 import montp.data.entity.PersonEntity;
 import montp.data.entity.ProjectStatusEntity;
 import montp.data.entity.security.GroupEntity;
 import montp.data.entity.security.UserEntity;
-import montp.services.PersonService;
-import montp.services.ProjectStatusService;
-import montp.services.UserService;
+import montp.services.*;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -26,6 +26,8 @@ public class Seeder {
     @Inject private UserService userService;
     @Inject private PersonService personService;
     @Inject private ProjectStatusService projectStatusService;
+    @Inject private FacturationStatusService facturationStatusService;
+    @Inject private PayementModeService payementModeService;
 
     @PersistenceContext private EntityManager em;
     
@@ -35,12 +37,12 @@ public class Seeder {
             userService.isEmpty()
         ) {
             //region PERSON
-            PersonEntity kerian = new PersonEntity(false, "Kérian", "MONTES-MORIN", "kerianmontes@test.com", "0642624880", new Date(1997, Calendar.JULY, 3), "4 chemin des jardins neufs, Avignon", "84000", new Float("20000"), new Float("12.5"));
+            PersonEntity kerian = new PersonEntity(false, "K\u00e9rian", "MONTES-MORIN", "kerianmontes@test.com", "0642624880", new Date(1997, Calendar.JULY, 3), "4 chemin des jardins neufs, Avignon", "84000", new Float("20000"), new Float("12.5"));
             PersonEntity ben    = new PersonEntity(false, "Ben", "CLEMENT", "ben.clement@test.com", new Date(1996, Calendar.DECEMBER, 14), new Float("18000"), new Float("10.5"));
             PersonEntity loic   = new PersonEntity(false, "Loic", "Wernert", "lw@test.com", new Date(1998, Calendar.NOVEMBER, 14), new Float("2000"), new Float("15"));
 
             PersonEntity esimed     = new PersonEntity(true, "", "Esimed", "esimed@test.com", new Date(1990, Calendar.JANUARY, 1), new Float("30000"), new Float("14.50"));
-            PersonEntity aubanel    = new PersonEntity(true, "", "Théodore Aubanel", "aubanel@test.com", new Date(1990, Calendar.JANUARY, 1), new Float("30000"), new Float("14.50"));
+            PersonEntity aubanel    = new PersonEntity(true, "", "Th\u00e9odore Aubanel", "aubanel@test.com", new Date(1990, Calendar.JANUARY, 1), new Float("30000"), new Float("14.50"));
             //endregion
 
             if (userService.getGroup("USER") == null) {
@@ -85,11 +87,24 @@ public class Seeder {
 
         if (projectStatusService.isEmpty()) {
             projectStatusService.insert(new ProjectStatusEntity("prospect", 1));
-            projectStatusService.insert(new ProjectStatusEntity("devis envoyé", 2));
-            projectStatusService.insert(new ProjectStatusEntity("devis accepté", 3));
-            projectStatusService.insert(new ProjectStatusEntity("démarré", 4));
-            projectStatusService.insert(new ProjectStatusEntity("terminé", 5));
-            projectStatusService.insert(new ProjectStatusEntity("annulé", 6));
+            projectStatusService.insert(new ProjectStatusEntity("devis envoy\u00e9", 2));
+            projectStatusService.insert(new ProjectStatusEntity("devis accept\u00e9", 3));
+            projectStatusService.insert(new ProjectStatusEntity("d\u00e9marr\u00e9", 4));
+            projectStatusService.insert(new ProjectStatusEntity("termin\u00e9", 5));
+            projectStatusService.insert(new ProjectStatusEntity("annul\u00e9", 6));
+        }
+
+        if (facturationStatusService.isEmpty()) {
+            facturationStatusService.insert(new FacturationStatusEntity("\u00e9dit\u00e9e", 1));
+            facturationStatusService.insert(new FacturationStatusEntity("envoy\u00e9e", 2));
+            facturationStatusService.insert(new FacturationStatusEntity("pay\u00e9e", 3));
+        }
+
+        if (payementModeService.isEmpty()) {
+            payementModeService.insert(new PayementModeEntity("Cheque", 1));
+            payementModeService.insert(new PayementModeEntity("Virement", 2));
+            payementModeService.insert(new PayementModeEntity("Paypal", 3));
+            payementModeService.insert(new PayementModeEntity("Autre", 4));
         }
     }
 }

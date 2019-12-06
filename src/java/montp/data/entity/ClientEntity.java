@@ -10,6 +10,7 @@ import javax.persistence.Table;
 public class ClientEntity extends GenericEntity {
 
     //region MEMBERS
+    @Column private Integer factureReference = 0;
     @Column(nullable = false) private Boolean isCompany = false;
     @Column private String firstname;
     @Column private String lastname;
@@ -42,7 +43,16 @@ public class ClientEntity extends GenericEntity {
         this.zip        = zip;
     }
 
+
     //region GETTERS / SETTERS
+    public Integer getFactureReference() {
+        return factureReference;
+    }
+
+    public void setFactureReference(Integer factureReference) {
+        this.factureReference = factureReference;
+    }
+
     public Boolean getIsCompany() {
         return isCompany;
     }
