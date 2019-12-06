@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../layout.xhtml">
+    <ui:param name="title" value="#{msg['app.entity.facturation.owner.title']}"/>
+
+    <f:metadata>
+        <f:viewParam name="project" value="#{projectFacturationsCRUDView.projectId}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="facturations_list_form">
+            <p:growl id="messages" autoUpdate="true"/>
+            <p:commandButton icon="fa fa-plus"
+                             value="#{msg['app.add.action']}"
+                             actionListener="#{projectFacturationsCRUDView.create()}"
+                             process="@this"
+                             oncomplete="PF('facturation_dialog').show()"
+                             update="facturation_dialog"/>
+
+            <p:dataTable var="facturation"
+                         value="#{projectFacturationsCRUDView.entities}"
+                         id="facturationDataTable">
+
+                <p:column headerText="#{msg['app.entity.facturation.field.name']}" sortBy="#{facturation.name}"
+                          filterBy="#{facturation.name}">
+                    <h:outputText value="#{facturation.name}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['app.entity.facturation.field.status']}" sortBy="#{facturation.status.status}"
+                          filterBy="#{facturation.status.status}">
+                    <h:outputText value="#{facturation.status.status}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['app.datatable.column.options']}" style="width:120px;text-align:center">
+                    <p:commandButton icon="fa fa-edit"
+                                     title="#{msg['app.update.action']}"
+                                     actionListener="#{projectFacturationsCRUDView.setEntity(facturation)}"
+                                     update="facturation_dialog"
+                                     oncomplete="PF('facturation_dialog').show()"/>
+                    <p:commandButton icon="fa fa-trash"
+                                     title="#{msg['app.delete.action']}"
+                                     rendered="#{projectFacturationsCRUDView.canDelete(facturation)}"
+                                     actionListener="#{projectFacturationsCRUDView.delete(facturation)}"
+                                     update="@form"
+                                     process="@this">
+                        <p:confirm header="#{msg['app.delete.action']}"
+                                   message="#{msg['app.delete.action']} #{facturation} ?"
+                                   icon="fa fa-question-circle"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <p:dialog header="#{msg['app.add.action']}"
+                  widgetVar="facturation_dialog"
+                  minHeight="40"
+                  modal="true"
+                  closeOnEscape="true"
+                  id="facturation_dialog">
+            <h:form id="facturation_form">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel for="payedAtMax" value="Button:" />
+                    <p:calendar id="payedAtMax"
+                                value="#{facturation.payedAtMax}"
+                                required="true"
+                                requiredMessage="Le champs est obligatoire"
+                                showOn="button"/>
+
+                    <p:outputLabel for="facturedAt" value="Button:" />
+                    <p:calendar id="facturedAt"
+                                value="#{facturation.facturedAt}"
+                                required="true"
+                                requiredMessage="Le champs est obligatoire"
+                                showOn="button"/>
+
+                    <p:outputLabel for="payedAt" value="Button:" />
+                    <p:calendar id="payedAt"
+                                value="#{facturation.payedAt}"
+                                showOn="button"/>
+
+                    <p:outputLabel for="@next" value="#{msg['app.entity.facturation.field.status']} :"/>
+                    <p:selectOneMenu id="status" value="#{projectFacturationsCRUDView.entity.status}" style="width:125px">
+                        <f:selectItem itemLabel="#{msg['app.form.list.nullItem']}" itemValue=""/>
+                        <f:selectItems value="#{projectFacturationsCRUDView.statusList}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="@next" value="#{msg['app.entity.facturation.field.payement.mode']} :"/>
+                    <p:selectOneMenu id="status" value="#{projectFacturationsCRUDView.entity.payementMode}" style="width:125px">
+                        <f:selectItem itemLabel="#{msg['app.form.list.nullItem']}" itemValue=""/>
+                        <f:selectItems value="#{projectFacturationsCRUDView.payementModeList}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+
+                <p:separator/>
+                <h:outputText value="#{msg['app.requiredfields']}"/>
+                <p:commandButton
+                        value="#{msg[(projectFacturationsCRUDView.entity.id == null) ?'app.add.action' :'app.update.action']}"
+                        action="#{projectFacturationsCRUDView.sav   e()}"
+                        update="@form,facturations_list_form:messages,facturations_list_form:facturationDataTable"
+                        oncomplete="if (!args.validationFailed) PF('facturation_dialog').hide()"/>
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
+

@@ -43,6 +43,54 @@ public class FacturationEntity extends GenericEntity {
     public void setStatus(FacturationStatusEntity status) {
         this.status = status;
     }
+
+    public Date getFacturedAt() {
+        return facturedAt;
+    }
+
+    public void setFacturedAt(Date facturedAt) {
+        this.facturedAt = facturedAt;
+    }
+
+    public Date getPayedAtMax() {
+        return payedAtMax;
+    }
+
+    public void setPayedAtMax(Date payedAtMax) {
+        this.payedAtMax = payedAtMax;
+    }
+
+    public Date getPayedAt() {
+        return payedAt;
+    }
+
+    public void setPayedAt(Date payedAt) {
+        this.payedAt = payedAt;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public PayementModeEntity getPayementMode() {
+        return payementMode;
+    }
+
+    public void setPayementMode(PayementModeEntity payementMode) {
+        this.payementMode = payementMode;
+    }
+
+    public List<FacturationLineEntity> getFacturationLines() {
+        return facturationLines;
+    }
+
+    public void setFacturationLines(List<FacturationLineEntity> facturationLines) {
+        this.facturationLines = facturationLines;
+    }
     //endregion
 
     @Override
