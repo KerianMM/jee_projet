@@ -6,6 +6,7 @@ import montp.data.entity.security.UserEntity;
 import montp.tools.Tools;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +28,12 @@ public class UserService extends GenericService<UserEntity, UserDAO> {
     }
 
     public boolean checkIfExists(String username) {
-        return getOneByUsername(username) != null;
+        try {
+            getOneByUsername(username);
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
     }
     //endregion
 
