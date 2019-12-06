@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../layout.xhtml">
+    <ui:param name="title" value="#{msg['app.entity.project.owner.title']}"/>
+
+    <f:metadata>
+        <f:viewParam name="client" value="#{clientProjectsCRUDView.clientId}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="projects_list_form">
+            <p:growl id="messages" autoUpdate="true"/>
+            <p:commandButton icon="fa fa-plus"
+                             value="#{msg['app.add.action']}"
+                             actionListener="#{clientProjectsCRUDView.create()}"
+                             process="@this"
+                             oncomplete="PF('project_dialog').show()"
+                             update="project_dialog"/>
+
+            <p:dataTable var="project"
+                         value="#{clientProjectsCRUDView.entities}"
+                         id="projectDataTable">
+
+                <p:column headerText="#{msg['app.entity.project.field.name']}" sortBy="#{project.name}"
+                          filterBy="#{project.name}">
+                    <h:outputText value="#{project.name}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['app.entity.project.field.status']}" sortBy="#{project.status}"
+                          filterBy="#{project.status}">
+                    <h:outputText value="#{project.status}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['app.datatable.column.options']}" style="width:120px;text-align:center">
+                    <p:commandButton icon="fa fa-edit"
+                                     title="#{msg['app.update.action']}"
+                                     actionListener="#{clientProjectsCRUDView.setEntity(project)}"
+                                     update="project_dialog"
+                                     oncomplete="PF('project_dialog').show()"/>
+                    <p:commandButton icon="fa fa-trash"
+                                     title="#{msg['app.delete.action']}"
+                                     rendered="#{clientProjectsCRUDView.canDelete(project)}"
+                                     actionListener="#{clientProjectsCRUDView.delete(project)}"
+                                     update="@form"
+                                     process="@this">
+                        <p:confirm header="#{msg['app.delete.action']}"
+                                   message="#{msg['app.delete.action']} #{project} ?"
+                                   icon="fa fa-question-circle"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <p:dialog header="#{msg['app.add.action']}"
+                  widgetVar="project_dialog"
+                  minHeight="40"
+                  modal="true"
+                  closeOnEscape="true"
+                  id="project_dialog">
+            <h:form id="project_form">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel for="name" value="#{msg['app.entity.project.field.name']} :"/>
+                    <p:inputText id="name" value="#{clientProjectsCRUDView.entity.name}"
+                                 required="true"/>
+
+                    <p:outputLabel for="@next" value="#{msg['app.entity.project.field.status']} :"/>
+                    <p:selectOneMenu id="status" value="#{clientProjectsCRUDView.entity.status}" style="width:125px">
+                        <f:selectItem itemLabel="#{msg['app.form.list.nullItem']}" itemValue=""/>
+                        <f:selectItems value="#{clientProjectsCRUDView.statusList}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+
+                <p:separator/>
+                <h:outputText value="#{msg['app.requiredfields']}"/>
+                <p:commandButton
+                        value="#{msg[(clientProjectsCRUDView.entity.id == null) ?'app.add.action' :'app.update.action']}"
+                        action="#{clientProjectsCRUDView.save()}"
+                        update="@form,projects_list_form:messages,projects_list_form:projectDataTable"
+                        oncomplete="if (!args.validationFailed) PF('project_dialog').hide()"/>
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
+
