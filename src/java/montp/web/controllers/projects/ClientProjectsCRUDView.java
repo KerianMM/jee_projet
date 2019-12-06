@@ -45,7 +45,7 @@ public class ClientProjectsCRUDView extends CRUDController<ProjectEntity, Projec
     }
 
     private void initEntities() {
-        entities = service.getByClient(client);
+        entities = client.getProjects();
     }
 
     //region GETTERS / SETTERS

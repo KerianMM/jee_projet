@@ -44,7 +44,7 @@ public class ProjectFacturationsCRUDView extends CRUDController<FacturationEntit
     }
 
     private void initEntities() {
-        entities = service.getByProject(project);
+        entities = project.getFacturations();
     }
 
     //region GETTERS / SETTERS

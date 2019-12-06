@@ -12,4 +12,10 @@ public class ProjectService extends GenericService<ProjectEntity, ProjectDAO> {
     public List<ProjectEntity> getByClient(ClientEntity client) {
         return dao.findByClient(client);
     }
+
+    @Override
+    public void insert(ProjectEntity instance) {
+        super.insert(instance);
+        instance.getClient().getProjects().add(instance);
+    }
 }

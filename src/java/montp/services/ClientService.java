@@ -12,4 +12,10 @@ public class ClientService extends GenericService<ClientEntity, ClientDAO> {
     public List<ClientEntity> getByCurrentUser(UserEntity userEntity) {
         return dao.findByOwner(userEntity.getPerson());
     }
+
+    @Override
+    public void insert(ClientEntity instance) {
+        super.insert(instance);
+        instance.getPerson().getClients().add(instance);
+    }
 }

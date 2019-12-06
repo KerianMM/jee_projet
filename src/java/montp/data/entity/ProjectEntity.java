@@ -1,9 +1,7 @@
 package montp.data.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Project")
@@ -11,6 +9,7 @@ public class ProjectEntity extends GenericEntity {
     @Column private String name;
     @ManyToOne private ClientEntity client;
     @ManyToOne private ProjectStatusEntity status;
+    @OneToMany(mappedBy = "project") private List<FacturationEntity> facturations;
 
     public ProjectEntity() {}
     public ProjectEntity(String name, ClientEntity client, ProjectStatusEntity status) {
@@ -42,6 +41,14 @@ public class ProjectEntity extends GenericEntity {
 
     public void setStatus(ProjectStatusEntity status) {
         this.status = status;
+    }
+
+    public List<FacturationEntity> getFacturations() {
+        return facturations;
+    }
+
+    public void setFacturations(List<FacturationEntity> facturations) {
+        this.facturations = facturations;
     }
     //endregion
 

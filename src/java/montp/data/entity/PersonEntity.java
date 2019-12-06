@@ -126,6 +126,14 @@ public class PersonEntity extends GenericEntity {
     public void setTaxes(Float taxes) {
         this.taxes = taxes;
     }
+
+    public List<ClientEntity> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<ClientEntity> clients) {
+        this.clients = clients;
+    }
     //endregion
 
     @Override

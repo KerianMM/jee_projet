@@ -28,6 +28,8 @@ public class FacturationService extends GenericService<FacturationEntity, Factur
         client.setFactureReference(client.getFactureReference()+1);
 
         super.insert(instance);
+
+        instance.getProject().getFacturations().add(instance);
     }
 
     public List<FacturationEntity> getByProject(ProjectEntity project){
