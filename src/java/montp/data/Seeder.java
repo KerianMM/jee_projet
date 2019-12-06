@@ -51,28 +51,28 @@ public class Seeder {
                 em.persist(groupUser);
                 em.persist(groupAdmin);
 
-                UserEntity userKerian = new UserEntity("kerian", "kerian", kerian);
+                UserEntity userKerian = new UserEntity(kerian.getEmail(), "kerian", kerian);
                 List<GroupEntity> groupesKerian = new ArrayList<>();
                 groupesKerian.add(groupUser);
                 groupesKerian.add(groupAdmin);
                 userKerian.setGroups(groupesKerian);
 
-                UserEntity userBen = new UserEntity("ben", "ben", ben);
+                UserEntity userBen = new UserEntity(ben.getEmail(), "ben", ben);
                 List<GroupEntity> groupesBen = new ArrayList<>();
                 groupesBen.add(groupUser);
                 userBen.setGroups(groupesBen);
 
-                UserEntity userLoic = new UserEntity("loic", "loic", loic);
+                UserEntity userLoic = new UserEntity(loic.getEmail(), "loic", loic);
                 List<GroupEntity> groupesLoic = new ArrayList<>();
                 groupesLoic.add(groupUser);
                 userLoic.setGroups(groupesLoic);
 
-                UserEntity userEsimed = new UserEntity("esimed", "esimed", esimed);
+                UserEntity userEsimed = new UserEntity(esimed.getEmail(), "esimed", esimed);
                 List<GroupEntity> groupesEsimed = new ArrayList<>();
                 groupesEsimed.add(groupUser);
                 userEsimed.setGroups(groupesEsimed);
 
-                UserEntity userAubanel = new UserEntity("aubanel", "aubanel", aubanel);
+                UserEntity userAubanel = new UserEntity(aubanel.getEmail(), "aubanel", aubanel);
                 List<GroupEntity> groupesAubanel = new ArrayList<>();
                 groupesAubanel.add(groupUser);
                 userAubanel.setGroups(groupesAubanel);
