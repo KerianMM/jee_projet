@@ -35,4 +35,9 @@ public class FacturationService extends GenericService<FacturationEntity, Factur
     public List<FacturationEntity> getByProject(ProjectEntity project){
         return dao.findByProject(project);
     }
+
+    @Override
+    public boolean canDelete(FacturationEntity instance) {
+        return super.canDelete(instance) && instance.getFacturationLines().isEmpty();
+    }
 }

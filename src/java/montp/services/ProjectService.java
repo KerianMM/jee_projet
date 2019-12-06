@@ -18,4 +18,9 @@ public class ProjectService extends GenericService<ProjectEntity, ProjectDAO> {
         super.insert(instance);
         instance.getClient().getProjects().add(instance);
     }
+
+    @Override
+    public boolean canDelete(ProjectEntity instance) {
+        return super.canDelete(instance) && instance.getFacturations().isEmpty();
+    }
 }

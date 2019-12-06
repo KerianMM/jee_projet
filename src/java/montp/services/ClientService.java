@@ -18,4 +18,9 @@ public class ClientService extends GenericService<ClientEntity, ClientDAO> {
         super.insert(instance);
         instance.getPerson().getClients().add(instance);
     }
+
+    @Override
+    public boolean canDelete(ClientEntity instance) {
+        return super.canDelete(instance) && instance.getProjects().isEmpty();
+    }
 }
