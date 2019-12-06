@@ -30,9 +30,9 @@
                     <h:outputText value="#{project.name}"/>
                 </p:column>
 
-                <p:column headerText="#{msg['app.entity.project.field.status']}" sortBy="#{project.status}"
-                          filterBy="#{project.status}">
-                    <h:outputText value="#{project.status}"/>
+                <p:column headerText="#{msg['app.entity.project.field.status']}" sortBy="#{project.status.status}"
+                          filterBy="#{project.status.status}">
+                    <h:outputText value="#{project.status.status}"/>
                 </p:column>
 
                 <p:column headerText="#{msg['app.datatable.column.options']}" style="width:120px;text-align:center">
