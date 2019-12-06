@@ -1,14 +1,8 @@
 package montp.web.controllers.facturations;
 
-import montp.data.entity.FacturationEntity;
-import montp.data.entity.PayementModeEntity;
-import montp.data.entity.ProjectEntity;
-import montp.data.entity.ProjectStatusEntity;
+import montp.data.entity.*;
 import montp.data.entity.security.UserEntity;
-import montp.services.FacturationService;
-import montp.services.PayementModeService;
-import montp.services.ProjectService;
-import montp.services.ProjectStatusService;
+import montp.services.*;
 import montp.web.FacesTools;
 import montp.web.controllers.base.CRUDController;
 
@@ -21,14 +15,14 @@ import java.util.List;
 @Named
 public class ProjectFacturationsCRUDView extends CRUDController<FacturationEntity, FacturationService> {
     @Inject private ProjectService projectService;
-    @Inject private ProjectStatusService projectStatusService;
+    @Inject private FacturationStatusService facturationStatusService;
     @Inject private PayementModeService payementModeService;
     @Inject private UserEntity user;
 
     private ProjectEntity project;
     private Integer projectId;
-    private List<ProjectStatusEntity> statusList;
-    private List<PayementModeEntity> payementModesList;
+    private List<FacturationStatusEntity> statusList;
+    private List<PayementModeEntity> payementModeList;
 
     @Override
     public void create() {
@@ -38,8 +32,8 @@ public class ProjectFacturationsCRUDView extends CRUDController<FacturationEntit
 
     @Override
     public void init() {
-        statusList = projectStatusService.getAll();
-        payementModesList = payementModeService.getAll();
+        statusList = facturationStatusService.getAll();
+        payementModeList = payementModeService.getAll();
         create();
     }
 
@@ -69,20 +63,20 @@ public class ProjectFacturationsCRUDView extends CRUDController<FacturationEntit
         initEntities();
     }
 
-    public List<ProjectStatusEntity> getStatusList() {
+    public List<FacturationStatusEntity> getStatusList() {
         return statusList;
     }
 
-    public void setStatusList(List<ProjectStatusEntity> statusList) {
+    public void setStatusList(List<FacturationStatusEntity> statusList) {
         this.statusList = statusList;
     }
 
-    public List<PayementModeEntity> getPayementModesList() {
-        return payementModesList;
+    public List<PayementModeEntity> getPayementModeList() {
+        return payementModeList;
     }
 
-    public void setPayementModesList(List<PayementModeEntity> payementModesList) {
-        this.payementModesList = payementModesList;
+    public void setPayementModeList(List<PayementModeEntity> payementModeList) {
+        this.payementModeList = payementModeList;
     }
 //endregion
 }

@@ -25,14 +25,34 @@
                          value="#{projectFacturationsCRUDView.entities}"
                          id="facturationDataTable">
 
-                <p:column headerText="#{msg['app.entity.facturation.field.name']}" sortBy="#{facturation.name}"
-                          filterBy="#{facturation.name}">
-                    <h:outputText value="#{facturation.name}"/>
+                <p:column headerText="#{msg['app.entity.facturation.field.reference']}" sortBy="#{facturation.reference}"
+                          filterBy="#{facturation.reference}">
+                    <h:outputText value="#{facturation.reference}"/>
                 </p:column>
 
+                <p:column headerText="#{msg['app.entity.facturation.field.facturedAt']}" sortBy="#{facturation.facturedAt}"
+                          filterBy="#{facturation.facturedAt}">
+                    <h:outputText value="#{facturation.facturedAt}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['app.entity.facturation.field.payedAtMax']}" sortBy="#{facturation.payedAtMax}"
+                          filterBy="#{facturation.payedAtMax}">
+                    <h:outputText value="#{facturation.payedAtMax}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['app.entity.facturation.field.payedAt']}" sortBy="#{facturation.payedAt}"
+                          filterBy="#{facturation.payedAt}">
+                    <h:outputText value="#{(facturation.payedAt == null) ?'A payer' :facturation.payedAt}"/>
+                </p:column>
+                
                 <p:column headerText="#{msg['app.entity.facturation.field.status']}" sortBy="#{facturation.status.status}"
                           filterBy="#{facturation.status.status}">
                     <h:outputText value="#{facturation.status.status}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['app.entity.facturation.field.payement.mode']}" sortBy="#{facturation.payementMode.status}"
+                          filterBy="#{facturation.payementMode.status}">
+                    <h:outputText value="#{facturation.payementMode.status}"/>
                 </p:column>
 
                 <p:column headerText="#{msg['app.datatable.column.options']}" style="width:120px;text-align:center">
@@ -63,23 +83,23 @@
                   id="facturation_dialog">
             <h:form id="facturation_form">
                 <h:panelGrid columns="2" cellpadding="5">
-                    <p:outputLabel for="payedAtMax" value="Button:" />
-                    <p:calendar id="payedAtMax"
-                                value="#{facturation.payedAtMax}"
-                                required="true"
-                                requiredMessage="Le champs est obligatoire"
-                                showOn="button"/>
-
-                    <p:outputLabel for="facturedAt" value="Button:" />
+                    <p:outputLabel for="facturedAt" value="#{msg['app.entity.facturation.field.facturedAt']} :" />
                     <p:calendar id="facturedAt"
-                                value="#{facturation.facturedAt}"
+                                value="#{projectFacturationsCRUDView.entity.facturedAt}"
                                 required="true"
                                 requiredMessage="Le champs est obligatoire"
                                 showOn="button"/>
 
-                    <p:outputLabel for="payedAt" value="Button:" />
+                    <p:outputLabel for="payedAtMax" value="#{msg['app.entity.facturation.field.payedAtMax']} :" />
+                    <p:calendar id="payedAtMax"
+                                value="#{projectFacturationsCRUDView.entity.payedAtMax}"
+                                required="true"
+                                requiredMessage="Le champs est obligatoire"
+                                showOn="button"/>
+
+                    <p:outputLabel for="payedAt" value="#{msg['app.entity.facturation.field.payedAt']} :" />
                     <p:calendar id="payedAt"
-                                value="#{facturation.payedAt}"
+                                value="#{projectFacturationsCRUDView.entity.payedAt}"
                                 showOn="button"/>
 
                     <p:outputLabel for="@next" value="#{msg['app.entity.facturation.field.status']} :"/>
@@ -89,7 +109,7 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel for="@next" value="#{msg['app.entity.facturation.field.payement.mode']} :"/>
-                    <p:selectOneMenu id="status" value="#{projectFacturationsCRUDView.entity.payementMode}" style="width:125px">
+                    <p:selectOneMenu id="payementMode" value="#{projectFacturationsCRUDView.entity.payementMode}" style="width:125px">
                         <f:selectItem itemLabel="#{msg['app.form.list.nullItem']}" itemValue=""/>
                         <f:selectItems value="#{projectFacturationsCRUDView.payementModeList}"/>
                     </p:selectOneMenu>
@@ -99,7 +119,7 @@
                 <h:outputText value="#{msg['app.requiredfields']}"/>
                 <p:commandButton
                         value="#{msg[(projectFacturationsCRUDView.entity.id == null) ?'app.add.action' :'app.update.action']}"
-                        action="#{projectFacturationsCRUDView.sav   e()}"
+                        action="#{projectFacturationsCRUDView.save()}"
                         update="@form,facturations_list_form:messages,facturations_list_form:facturationDataTable"
                         oncomplete="if (!args.validationFailed) PF('facturation_dialog').hide()"/>
             </h:form>

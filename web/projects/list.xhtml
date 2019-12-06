@@ -51,6 +51,10 @@
                                    message="#{msg['app.delete.action']} #{project} ?"
                                    icon="fa fa-question-circle"/>
                     </p:commandButton>
+                    <br/>
+                    <p:link outcome="/facturations/list.xhtml" value="#{msg['app.entity.project.field.facturations']}">
+                        <f:param name="project" value="#{project.id}" />
+                    </p:link>
                 </p:column>
             </p:dataTable>
         </h:form>
@@ -68,7 +72,9 @@
                                  required="true"/>
 
                     <p:outputLabel for="@next" value="#{msg['app.entity.project.field.status']} :"/>
-                    <p:selectOneMenu id="status" value="#{clientProjectsCRUDView.entity.status}" style="width:125px">
+                    <p:selectOneMenu id="status" value="#{clientProjectsCRUDView.entity.status}"
+                                     required="true"
+                                     style="width:125px">
                         <f:selectItem itemLabel="#{msg['app.form.list.nullItem']}" itemValue=""/>
                         <f:selectItems value="#{clientProjectsCRUDView.statusList}"/>
                     </p:selectOneMenu>

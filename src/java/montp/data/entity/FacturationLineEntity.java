@@ -1,9 +1,13 @@
 package montp.data.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Entity
+@Table(name = "FacturationLine")
 public class FacturationLineEntity extends GenericEntity {
     @Column private String libelle;
     @Column private Float price;
