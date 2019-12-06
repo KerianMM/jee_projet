@@ -8,6 +8,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 
 @ApplicationScoped
+@Named
 public class SecurityView implements Serializable {
 
     public void logout() {
