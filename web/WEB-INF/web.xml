@@ -86,6 +86,11 @@
             <description/>
             <url-pattern>/app/projects/list.xhtml</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>user_clients_project_facturations</web-resource-name>
+            <description/>
+            <url-pattern>/app/facturations/list.xhtml</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>USER</role-name>
