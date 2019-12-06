@@ -13,6 +13,11 @@ public class ClientService extends GenericService<ClientEntity, ClientDAO> {
         return dao.findByOwner(userEntity.getPerson());
     }
 
+    public void incrementFacturation(ClientEntity client){
+        client.setFactureReference(client.getFactureReference()+1);
+        save(client);
+    }
+
     @Override
     public void insert(ClientEntity instance) {
         super.insert(instance);

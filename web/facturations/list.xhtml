@@ -25,17 +25,20 @@
                          value="#{projectFacturationsCRUDView.entities}"
                          id="facturationDataTable">
 
-                <p:column headerText="#{msg['app.entity.facturation.field.reference']}" sortBy="#{facturation.reference}"
+                <p:column headerText="#{msg['app.entity.facturation.field.reference']}"
+                          sortBy="#{facturation.reference}"
                           filterBy="#{facturation.reference}">
                     <h:outputText value="#{facturation.reference}"/>
                 </p:column>
 
-                <p:column headerText="#{msg['app.entity.facturation.field.facturedAt']}" sortBy="#{facturation.facturedAt}"
+                <p:column headerText="#{msg['app.entity.facturation.field.facturedAt']}"
+                          sortBy="#{facturation.facturedAt}"
                           filterBy="#{facturation.facturedAt}">
                     <h:outputText value="#{facturation.facturedAt}"/>
                 </p:column>
 
-                <p:column headerText="#{msg['app.entity.facturation.field.payedAtMax']}" sortBy="#{facturation.payedAtMax}"
+                <p:column headerText="#{msg['app.entity.facturation.field.payedAtMax']}"
+                          sortBy="#{facturation.payedAtMax}"
                           filterBy="#{facturation.payedAtMax}">
                     <h:outputText value="#{facturation.payedAtMax}"/>
                 </p:column>
@@ -44,13 +47,15 @@
                           filterBy="#{facturation.payedAt}">
                     <h:outputText value="#{(facturation.payedAt == null) ?'A payer' :facturation.payedAt}"/>
                 </p:column>
-                
-                <p:column headerText="#{msg['app.entity.facturation.field.status']}" sortBy="#{facturation.status.status}"
+
+                <p:column headerText="#{msg['app.entity.facturation.field.status']}"
+                          sortBy="#{facturation.status.status}"
                           filterBy="#{facturation.status.status}">
                     <h:outputText value="#{facturation.status.status}"/>
                 </p:column>
 
-                <p:column headerText="#{msg['app.entity.facturation.field.payement.mode']}" sortBy="#{facturation.payementMode.status}"
+                <p:column headerText="#{msg['app.entity.facturation.field.payement.mode']}"
+                          sortBy="#{facturation.payementMode.status}"
                           filterBy="#{facturation.payementMode.status}">
                     <h:outputText value="#{facturation.payementMode.status}"/>
                 </p:column>
@@ -83,36 +88,49 @@
                   id="facturation_dialog">
             <h:form id="facturation_form">
                 <h:panelGrid columns="2" cellpadding="5">
-                    <p:outputLabel for="facturedAt" value="#{msg['app.entity.facturation.field.facturedAt']} :" />
+                    <p:outputLabel for="facturedAt" value="#{msg['app.entity.facturation.field.facturedAt']} :"/>
                     <p:calendar id="facturedAt"
                                 value="#{projectFacturationsCRUDView.entity.facturedAt}"
                                 required="true"
                                 requiredMessage="Le champs est obligatoire"
                                 showOn="button"/>
 
-                    <p:outputLabel for="payedAtMax" value="#{msg['app.entity.facturation.field.payedAtMax']} :" />
+                    <p:outputLabel for="payedAtMax" value="#{msg['app.entity.facturation.field.payedAtMax']} :"/>
                     <p:calendar id="payedAtMax"
                                 value="#{projectFacturationsCRUDView.entity.payedAtMax}"
                                 required="true"
                                 requiredMessage="Le champs est obligatoire"
                                 showOn="button"/>
 
-                    <p:outputLabel for="payedAt" value="#{msg['app.entity.facturation.field.payedAt']} :" />
+                    <p:outputLabel for="@next" value="#{msg['app.entity.facturation.field.status']} :"/>
+                    <p:selectOneMenu id="status" value="#{projectFacturationsCRUDView.entity.status}"
+                                     style="width:125px">
+                        <f:selectItem itemLabel="#{msg['app.form.list.nullItem']}" itemValue=""/>
+                        <f:selectItems value="#{projectFacturationsCRUDView.statusList}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:separator/>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel for="payedAt" value="#{msg['app.entity.facturation.field.payedAt']} :"/>
                     <p:calendar id="payedAt"
                                 value="#{projectFacturationsCRUDView.entity.payedAt}"
                                 showOn="button"/>
 
-                    <p:outputLabel for="@next" value="#{msg['app.entity.facturation.field.status']} :"/>
-                    <p:selectOneMenu id="status" value="#{projectFacturationsCRUDView.entity.status}" style="width:125px">
-                        <f:selectItem itemLabel="#{msg['app.form.list.nullItem']}" itemValue=""/>
-                        <f:selectItems value="#{projectFacturationsCRUDView.statusList}"/>
-                    </p:selectOneMenu>
-
                     <p:outputLabel for="@next" value="#{msg['app.entity.facturation.field.payement.mode']} :"/>
-                    <p:selectOneMenu id="payementMode" value="#{projectFacturationsCRUDView.entity.payementMode}" style="width:125px">
+                    <p:selectOneMenu id="payementMode" value="#{projectFacturationsCRUDView.entity.payementMode}"
+                                     required="true"
+                                     style="width:125px">
                         <f:selectItem itemLabel="#{msg['app.form.list.nullItem']}" itemValue=""/>
                         <f:selectItems value="#{projectFacturationsCRUDView.payementModeList}"/>
                     </p:selectOneMenu>
+                </h:panelGrid>
+                <p:separator/>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel for="@next" value="#{msg['app.entity.facturation.field.comments']} :"/>
+                    <p:inputTextarea rows="5" cols="30" autoResize="false"
+                                     id="comments" maxlength="255"
+                                     value="#{projectFacturationsCRUDView.entity.comments}"/>
+
                 </h:panelGrid>
 
                 <p:separator/>

@@ -44,6 +44,12 @@ public class ClientProjectsCRUDView extends CRUDController<ProjectEntity, Projec
         initEntities();
     }
 
+    @Override
+    public void delete(ProjectEntity entity) {
+        super.delete(entity);
+        initEntities();
+    }
+
     private void initEntities() {
         entities = client.getProjects();
     }

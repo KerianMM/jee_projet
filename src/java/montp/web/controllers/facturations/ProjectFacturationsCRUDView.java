@@ -43,6 +43,12 @@ public class ProjectFacturationsCRUDView extends CRUDController<FacturationEntit
         initEntities();
     }
 
+    @Override
+    public void delete(FacturationEntity entity) {
+        super.delete(entity);
+        initEntities();
+    }
+
     private void initEntities() {
         entities = project.getFacturations();
     }
